@@ -22,7 +22,6 @@ const renderNavLinks = () => {
   Object.keys(routes).forEach((route) => {
     const navELement = document.createElement("a");
     const listElement = document.createElement("li");
-    // navELement.innerHTML = routes[route as keyof typeof routes].content;
     navELement.href = route;
     navELement.innerText = routes[route as keyof typeof routes].linkLabel;
     nav?.appendChild(listElement);
@@ -32,7 +31,8 @@ const renderNavLinks = () => {
 
 const renderContent = (route: keyof typeof routes) => {
   if (app) {
-    app.innerHTML = routes[route as keyof typeof routes].content;
+    app.innerHTML = "";
+    app.appendChild(routes[route as keyof typeof routes].content);
   }
 };
 
