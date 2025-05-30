@@ -1,4 +1,4 @@
-import { renderMusicCard } from "./musicCard";
+import { renderMusicCardElement } from "./musicCard";
 import { musicCardData, type IMusicCardProps } from "./musicCardData";
 
 const renderButton = (onClick: () => void) => {
@@ -17,8 +17,9 @@ export const renderCarouselPage = (arr: IMusicCardProps[]) => {
   container.id = "carousel-container";
 
   const renderCurrentCard = () => {
-    currentCardContainer.innerHTML = renderMusicCard(
-      musicCardData[currentCardIndex]
+    currentCardContainer.replaceChildren();
+    currentCardContainer.append(
+      renderMusicCardElement(musicCardData[currentCardIndex])
     );
   };
 

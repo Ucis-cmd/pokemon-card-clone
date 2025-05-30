@@ -1,4 +1,4 @@
-interface IAbilityProps {
+export interface IAbilityProps {
   energyAmount: number;
   name: string;
   damage: number;
