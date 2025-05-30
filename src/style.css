@@ -1,7 +1,10 @@
-:root,
+:root {
+  --card-width: 350px;
+}
 h1,
 h2,
-p {
+p,
+body {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   padding: 0;
   margin: 0;
@@ -9,7 +12,7 @@ p {
 #card-container {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, 350px);
+  grid-template-columns: repeat(auto-fit, var(--card-width));
   row-gap: 10px;
   column-gap: 10px;
 }
@@ -21,8 +24,8 @@ p {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  width: 350px;
-  height: 500px;
+  width: var(--card-width);
+  aspect-ratio: 7/10;
   padding: 12px;
   border: 20px solid yellow;
   border-radius: 12px;
@@ -52,7 +55,73 @@ p {
 
 #carousel-container {
   width: 100%;
+  height: fit-content;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+#previous-card {
+  transform: translateX(-50px);
+}
+
+.carousel-bg-card-container {
+  position: absolute;
+  z-index: -2;
+}
+
+#next-card {
+  transform: translateX(50px);
+}
+
+.carousel-button {
+  border: none;
+  background-color: white;
+  font-size: 42px;
+  color: rgb(177, 177, 177);
+  transition: 0.2s color;
+  padding: 100px 0;
+  user-select: none;
+}
+
+.carousel-button:hover {
+  color: black;
+}
+
+.moveFromLeft {
+  animation-name: moveFromLeft;
+  animation-timing-function: ease-in;
+  animation-duration: 1s;
+}
+
+.moveRight {
+  animation-name: moveToRight;
+  animation-timing-function: ease-in;
+  animation-duration: 1s;
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --card-width: 300px;
+  }
+}
+
+@keyframes moveFromLeft {
+  from {
+    opacity: 0.3;
+    transform: translateX(-50px);
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes moveToRight {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(50px);
+  }
 }
