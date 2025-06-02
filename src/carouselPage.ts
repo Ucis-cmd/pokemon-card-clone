@@ -1,15 +1,13 @@
 import { renderMusicCardElement } from "./musicCard";
 import { musicCardData, type IMusicCardProps } from "./musicCardData";
 
-const renderButton = (onClick: () => void, symbol: string) => {
-  const button = document.createElement("button");
-  button.textContent = symbol;
-  button.addEventListener("click", onClick);
-  button.className = "carousel-button";
-  return button;
-};
+interface ICarouselCardProps {
+  prevClass?: string;
+  currClass?: string;
+  nextClass?: string;
+}
 
-class carouselIndex {
+class CarouselIndex {
   index: number;
   getArrLength: () => number;
   constructor(initialIndex: number, getArrLength: () => number) {
@@ -34,6 +32,14 @@ class carouselIndex {
   }
 }
 
+const renderButton = (onClick: () => void, symbol: string) => {
+  const button = document.createElement("button");
+  button.textContent = symbol;
+  button.addEventListener("click", onClick);
+  button.className = "carousel-button";
+  return button;
+};
+
 export const renderCarouselPage = (arr: IMusicCardProps[]) => {
   const currentCardContainer = document.createElement("div");
   currentCardContainer.id = "current-card";
@@ -53,48 +59,55 @@ export const renderCarouselPage = (arr: IMusicCardProps[]) => {
     return arr.length;
   };
 
-  const prevCardIndex = new carouselIndex(arr.length - 1, getArrLength);
-  const currentCardIndex = new carouselIndex(0, getArrLength);
-  const nextCardIndex = new carouselIndex(1, getArrLength);
+  const prevCardIndex = new CarouselIndex(arr.length - 1, getArrLength);
+  const currentCardIndex = new CarouselIndex(0, getArrLength);
+  const nextCardIndex = new CarouselIndex(1, getArrLength);
 
-  const renderCarouselCards = () => {
+  const renderCarouselCards = ({
+    prevClass,
+    currClass,
+    nextClass,
+  }: ICarouselCardProps) => {
     currentCardContainer.replaceChildren();
     currentCardContainer.append(
-      renderMusicCardElement(
-        musicCardData[currentCardIndex.index],
-        "moveFromLeft"
-      )
+      renderMusicCardElement(musicCardData[currentCardIndex.index], currClass)
     );
 
     prevCardContainer.replaceChildren();
     prevCardContainer.append(
-      renderMusicCardElement(musicCardData[prevCardIndex.index])
+      renderMusicCardElement(musicCardData[prevCardIndex.index], prevClass)
     );
 
     nextCardContainer.replaceChildren();
     nextCardContainer.append(
-      renderMusicCardElement(musicCardData[nextCardIndex.index], "moveRight")
+      renderMusicCardElement(musicCardData[nextCardIndex.index], nextClass)
     );
   };
 
-  renderCarouselCards(); //move this down
-
   const previous = () => {
-    prevCardIndex.increment();
-    currentCardIndex.increment();
-    nextCardIndex.increment();
-    renderCarouselCards();
-  };
-
-  const next = () => {
     prevCardIndex.decrement();
     currentCardIndex.decrement();
     nextCardIndex.decrement();
-    renderCarouselCards();
+    renderCarouselCards({
+      currClass: "curr-move-from-left",
+      nextClass: "next-move-from-left",
+    });
+  };
+
+  const next = () => {
+    prevCardIndex.increment();
+    currentCardIndex.increment();
+    nextCardIndex.increment();
+    renderCarouselCards({
+      currClass: "curr-move-from-right",
+      prevClass: "prev-move-from-right",
+    });
   };
 
   const leftButton = renderButton(previous, "<");
   const rightButton = renderButton(next, ">");
+
+  renderCarouselCards({});
 
   container.appendChild(leftButton);
   container.appendChild(prevCardContainer);

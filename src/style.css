@@ -62,16 +62,17 @@ body {
 }
 
 #previous-card {
-  transform: translateX(-50px);
+  transform: translateX(-60px) scale(0.9);
+  z-index: -2;
 }
 
 .carousel-bg-card-container {
   position: absolute;
-  z-index: -2;
 }
 
 #next-card {
-  transform: translateX(50px);
+  transform: translateX(60px) scale(0.9);
+  z-index: -2;
 }
 
 .carousel-button {
@@ -88,14 +89,25 @@ body {
   color: black;
 }
 
-.moveFromLeft {
-  animation-name: moveFromLeft;
+.curr-move-from-left {
+  animation-name: currMoveFromLeft;
+  animation-timing-function: ease-in-out;
+  animation-duration: 1s;
+}
+.curr-move-from-right {
+  animation-name: currMoveFromRight;
+  animation-timing-function: ease-in-out;
+  animation-duration: 1s;
+}
+
+.next-move-from-left {
+  animation-name: nextMoveFromLeft;
   animation-timing-function: ease-in;
   animation-duration: 1s;
 }
 
-.moveRight {
-  animation-name: moveToRight;
+.prev-move-from-right {
+  animation-name: prevMoveFromRight;
   animation-timing-function: ease-in;
   animation-duration: 1s;
 }
@@ -106,22 +118,38 @@ body {
   }
 }
 
-@keyframes moveFromLeft {
+@keyframes currMoveFromLeft {
   from {
-    opacity: 0.3;
-    transform: translateX(-50px);
+    transform: translateX(-50px) scale(0.9);
   }
   to {
-    transform: translateX(0px);
-    opacity: 1;
+    transform: translateX(0px) scale(1);
   }
 }
 
-@keyframes moveToRight {
+@keyframes currMoveFromRight {
   from {
-    transform: translateX(0px);
+    transform: translateX(50px) scale(0.9);
   }
   to {
-    transform: translateX(50px);
+    transform: translateX(0px) scale(1);
+  }
+}
+
+@keyframes nextMoveFromLeft {
+  from {
+    transform: translateX(-50px) scale(1);
+  }
+  to {
+    transform: translateX(0px) scale(1);
+  }
+}
+
+@keyframes prevMoveFromRight {
+  from {
+    transform: translateX(50px) scale(1);
+  }
+  to {
+    transform: translateX(0px) scale(1);
   }
 }
