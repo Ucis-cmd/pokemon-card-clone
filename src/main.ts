@@ -3,6 +3,7 @@ import "./style.css";
 import { musicCardData } from "./musicCardData";
 import { renderHomePage } from "./homePage";
 import { renderCarouselPage } from "./carouselPage";
+import { renderPackPage } from "./packPage";
 
 const app = document.getElementById("app");
 const nav = document.getElementById("nav");
@@ -16,6 +17,10 @@ const routes = {
     linkLabel: "Carousel",
     content: renderCarouselPage(musicCardData),
   },
+  "/pack" : {
+    linkLabel: "Open pack",
+    content: renderPackPage(musicCardData),
+  }
 };
 
 const renderNavLinks = () => {

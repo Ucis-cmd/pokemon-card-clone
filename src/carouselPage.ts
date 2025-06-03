@@ -1,5 +1,5 @@
 import { renderMusicCardElement } from "./musicCard";
-import { musicCardData, type IMusicCardProps } from "./musicCardData";
+import { type IMusicCardProps } from "./musicCardData";
 
 interface ICarouselCardProps {
   prevClass?: string;
@@ -41,6 +41,7 @@ const renderButton = (onClick: () => void, symbol: string) => {
 };
 
 export const renderCarouselPage = (arr: IMusicCardProps[]) => {
+  console.log(arr);
   const currentCardContainer = document.createElement("div");
   currentCardContainer.id = "current-card";
 
@@ -70,17 +71,17 @@ export const renderCarouselPage = (arr: IMusicCardProps[]) => {
   }: ICarouselCardProps) => {
     currentCardContainer.replaceChildren();
     currentCardContainer.append(
-      renderMusicCardElement(musicCardData[currentCardIndex.index], currClass)
+      renderMusicCardElement(arr[currentCardIndex.index], currClass)
     );
 
     prevCardContainer.replaceChildren();
     prevCardContainer.append(
-      renderMusicCardElement(musicCardData[prevCardIndex.index], prevClass)
+      renderMusicCardElement(arr[prevCardIndex.index], prevClass)
     );
 
     nextCardContainer.replaceChildren();
     nextCardContainer.append(
-      renderMusicCardElement(musicCardData[nextCardIndex.index], nextClass)
+      renderMusicCardElement(arr[nextCardIndex.index], nextClass)
     );
   };
 
